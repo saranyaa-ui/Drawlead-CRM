@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>DrawLead ERP Sales CRM</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6f9;--c:#fff;--t:#1b2430;--m:#6b7788;--b:#dde3ea;--a:#2563eb;--r:#dc2626;--rb:#fee2e2;--y:#b45309;--yb:#fef3c7;--g:#16a34a;--gb:#dcfce7}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f141b;--c:#18202a;--t:#e6ebf2;--m:#93a0b2;--b:#2a3542;--a:#60a5fa;--r:#f87171;--rb:#3b1c1f;--y:#fbbf24;--yb:#3a2f12;--g:#4ade80;--gb:#13321f}}
+:root[data-theme=dark]{--bg:#0f141b;--c:#18202a;--t:#e6ebf2;--m:#93a0b2;--b:#2a3542;--a:#60a5fa;--r:#f87171;--rb:#3b1c1f;--y:#fbbf24;--yb:#3a2f12;--g:#4ade80;--gb:#13321f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--c);border-bottom:1px solid var(--b);padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+h1{font-size:16px;margin:0 6px 0 0}nav{display:flex;gap:4px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;color:var(--t);background:var(--c);border:1px solid var(--b);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}button.on,button.p{background:var(--a);color:#fff;border-color:var(--a)}button.d{color:var(--r)}button.big{padding:11px 14px;font-weight:600}
+.fl{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;align-items:center}
+main{padding:0 12px 80px}.view{display:none}.view.on{display:block}
+#board{display:flex;gap:10px;overflow-x:auto;padding-bottom:12px;align-items:flex-start}
+.col{flex:0 0 245px;background:var(--bg);border:1px solid var(--b);border-radius:10px;padding:8px;min-height:160px}
+.col h3{margin:0 0 8px;font-size:12px;display:flex;justify-content:space-between;text-transform:uppercase}.col h3 span{color:var(--m)}
+.card{background:var(--c);border:1px solid var(--b);border-left:4px solid var(--g);border-radius:8px;padding:8px;margin-bottom:8px;cursor:grab}
+.card.yel{border-left-color:var(--y)}.card.red{border-left-color:var(--r);background:var(--rb)}.card small{display:block;color:var(--m)}
+.bd{display:inline-block;font-size:11px;padding:1px 6px;border-radius:9px;background:var(--bg);border:1px solid var(--b);margin:3px 3px 0 0}.bd.r{background:var(--rb);color:var(--r)}.bd.o{background:var(--yb);color:var(--y)}
+.tw{overflow-x:auto;background:var(--c);border:1px solid var(--b);border-radius:10px;margin-bottom:14px}
+table{border-collapse:collapse;width:100%;white-space:nowrap}th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--b)}th{font-size:12px;color:var(--m);cursor:pointer}tr.cl{cursor:pointer}
+td.red,.kpi.red{background:var(--rb);color:var(--r);font-weight:700}.kpi.org{background:var(--yb)}
+h2{font-size:14px;margin:16px 0 8px}.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.kpi{background:var(--c);border:1px solid var(--b);border-radius:10px;padding:10px;cursor:default}.kpi.k{cursor:pointer}.kpi small{color:var(--m);display:block;font-size:12px}.kpi b{font-size:18px}
+.bar{display:flex;align-items:center;gap:8px;margin:4px 0}.bar i{display:block;height:16px;background:var(--a);border-radius:4px}.bar span{width:120px;font-size:12px}
+dialog{border:1px solid var(--b);border-radius:12px;background:var(--c);color:var(--t);width:min(720px,97vw);max-height:93vh;padding:14px}dialog::backdrop{background:#0008}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:6px}.grid label{display:flex;flex-direction:column;font-size:12px;color:var(--m);gap:2px}.grid input,.grid select,.grid textarea{width:100%}
+.note{color:var(--m);font-size:12px}.row{display:flex;gap:6px;flex-wrap:wrap;align-items:end;margin-bottom:8px}.err{color:var(--r);font-weight:600}
+.qa{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.qa a,.qa button{text-decoration:none;color:var(--t);border:1px solid var(--b);border-radius:8px;padding:9px 12px;background:var(--c)}
+.tl div{padding:3px 0;border-bottom:1px dashed var(--b);font-size:13px}.tl b{color:var(--m);font-weight:500}
+#fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;border-radius:28px;padding:13px 18px;box-shadow:0 4px 14px #0005}
+</style></head><body>
+<header><h1>DrawLead CRM</h1><nav id="nav"></nav><input id="gs" placeholder="Search…" oninput="gsr()" style="flex:1;min-width:110px"><select id="role" onchange="D.role=this.value;sv();all()"><option>Admin</option><option>Manager</option><option>Setter</option><option>Closer</option></select><input id="me" placeholder="My name" style="width:100px" onchange="D.me=this.value;sv();all()"></header>
+<div class="fl"><select id="fr"></select><select id="fs"></select><input type="date" id="f1"><input type="date" id="f2"><button onclick="clr()">Clear</button></div>
+<main>
+<section id="v-today" class="view on"></section>
+<section id="v-board" class="view"><div id="board"></div></section>
+<section id="v-log" class="view"><div class="row"><select id="fst" onchange="log()"></select><input id="q" placeholder="Filter…" oninput="log()"><button onclick="expLog()">Export Excel</button></div><div class="tw"><table id="logt"></table></div></section>
+<section id="v-dash" class="view"></section>
+<section id="v-fc" class="view"></section>
+<section id="v-daily" class="view"></section>
+<section id="v-imp" class="view"></section>
+</main>
+<button id="fab" class="p" onclick="actDlg()">+ Activity</button>
+<dialog id="dlg"></dialog><dialog id="dl2"></dialog>
+<script>
+const ST=['New Lead','Contacted','Qualified','Demo Booked','Demo Completed','Proposal Sent','Negotiation','Payment Pending','Won','Lost'];
+const OPT={src:['Cold Call','BNI','WhatsApp','LinkedIn','Instagram','Facebook','Website','Referral','Google','Email','Walk-in','Existing Client','Other'],ct:['','Builder','Contractor','Civil Contractor','Interior Contractor','Developer','Architecture Firm','Other'],sys:['','Excel','Tally','Other ERP','Multiple Software','Manual','No System','Unknown'],usr:['','1–5','6–10','11–25','26–50','50+'],dm:['','Owner','Director','Partner','GM','Manager','IT/Admin','Other'],yn:['','Yes','No'],tm:['','Immediate','Within 30 Days','1–3 Months','3–6 Months','Later','Unknown'],bg:['','Budget Confirmed','Budget Discussion','Not Discussed','No Budget','Unknown'],ds:['','Scheduled','Completed','No Show','Rescheduled','Cancelled','Not Qualified'],ps:['','Draft','Sent','Viewed','Negotiation','Accepted','Rejected','Expired'],lr:['','Price','Timing','Competitor','No Budget','Decision Maker','Partner/Management','Ghosted','Not Qualified','Existing ERP','Feature Gap','Other'],mod:['Project Management','Estimation','CRM','Purchase','Inventory','Accounts','HR','Payroll','Multiple Departments','Workflow Automation','Management Dashboard','Custom ERP','Other'],at:['Call','WhatsApp','Email','LinkedIn','Other'],ao:['Connected','No Answer','Busy','Interested','Not Interested','Call Back','Demo Booked','Wrong Number','Not Qualified']};
+const G=[['Contact',[['name','Lead Name'],['company','Company Name'],['phone','Phone','tel'],['email','Email','email'],['location','Location'],['industry','Industry / Business Type'],['source','Lead Source','sel',OPT.src],['setter','Setter','text','sl'],['closer','Closer','text','sl'],['stage','Lead Stage','sel',ST],['created','Date Created','datetime-local']]],
+['Qualification',[['ctype','Company Type','sel',OPT.ct],['system','Current System','sel',OPT.sys],['users','No. of Users','sel',OPT.usr],['depts','No. of Departments','number'],['dm','Key Decision Maker','sel',OPT.dm],['dmInv','Decision Maker Involved','sel',OPT.yn],['timeline','Implementation Timeline','sel',OPT.tm],['budget','Budget Status','sel',OPT.bg],['est','Estimated Deal Value','number'],['pain','Current Pain Point','textarea']]],
+['Demo',[['demoDate','Demo Date/Time','datetime-local'],['demoStatus','Demo Status','sel',OPT.ds],['objections','Objections','textarea'],['nextStep','Next Step','text']]],
+['Proposal',[['propNo','Proposal No.'],['propDate','Proposal Date','date'],['propVal','Proposal Value','number'],['disc','Discount','number'],['propStatus','Proposal Status','sel',OPT.ps],['expClose','Expected Closing','date']]],
+['Payment & Commission',[['deposit','Advance / Deposit','number'],['depDate','Deposit Date','date'],['collected','Amount Collected','number'],['nextPay','Next Payment Date','date'],['paidDate','Date Paid in Full','date'],['refund','Refund / Clawback','number'],['sComm','Setter Commission %','number'],['cComm','Closer Commission %','number']]],
+['Follow-up & Loss',[['nextFu','Next Follow-Up','date'],['fuOwner','Follow-Up Owner'],['fuNote','Follow-Up Notes'],['loss','Loss Reason','sel',OPT.lr],['lossNote','Lost Note'],['notes','Notes','textarea']]]];
+let D={leads:[],daily:[],imports:[],audit:[],seq:0,role:'Admin',me:'',set:{fu:7,dep:14,lag:4,prop:5,sc:2,cc:5,target:500000},fa:{}};
+try{Object.assign(D,JSON.parse(localStorage.getItem('dl')||'{}'))}catch(e){}
+const $=id=>document.getElementById(id),n=x=>+x||0,iso=(d=new Date())=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,16),td=()=>iso().slice(0,10);
+const dd=(a,b=new Date())=>(new Date(b)-new Date(a))/864e5,avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null,pct=(a,b)=>b?(a/b*100).toFixed(1)+'%':'–',inr=x=>'₹'+Math.round(x).toLocaleString('en-IN'),r1=x=>x==null?'–':x.toFixed(1);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sv=()=>{try{localStorage.setItem('dl',JSON.stringify(D))}catch(e){}};
+// ---- derived values
+const fin=l=>Math.max(0,n(l.propVal)-n(l.disc))||n(l.est),rev=l=>l.stage=='Won'?fin(l):0,net=l=>rev(l)-n(l.refund);
+const pay=l=>fin(l)>0&&n(l.collected)>=fin(l)?'Paid in Full':n(l.collected)>0?'Partially Paid':'Not Paid',bal=l=>Math.max(0,fin(l)-n(l.collected));
+const cS=l=>net(l)*(l.sComm!==''&&l.sComm!=null?n(l.sComm):D.set.sc)/100,cC=l=>net(l)*(l.cComm!==''&&l.cComm!=null?n(l.cComm):D.set.cc)/100;
+const isOpen=l=>l.stage!='Won'&&l.stage!='Lost',idx=s=>ST.indexOf(s);
+const reached=(l,s)=>l.tl.some(x=>x.s&&x.s!='Lost'&&idx(x.s)>=idx(s));
+const stT=(l,s)=>(l.tl.find(x=>x.s==s)||{}).t;
+const last=l=>l.tl.reduce((m,x)=>x.t>m?x.t:m,l.created||'');
+const ds=l=>Math.floor(dd(last(l)));
+const fuS=l=>{if(!isOpen(l))return'';const t=td();if(l.nextFu&&l.nextFu<t||ds(l)>=D.set.fu)return'red';if(l.nextFu&&l.nextFu<=iso(new Date(Date.now()+2*864e5)).slice(0,10))return'yel';return'grn'};
+const lagD=l=>{const b=stT(l,'Demo Booked');return b&&l.demoDate?dd(b,l.demoDate):null};
+const acts=l=>l.acts||[];
+// ---- leak rules
+const LK=[['Demo booked but not completed','r',l=>l.stage=='Demo Booked'&&l.demoDate&&l.demoDate.slice(0,10)<td()],['Demo no-show without reschedule','r',l=>l.demoStatus=='No Show'&&isOpen(l)],['Proposal sent, no follow-up set','r',l=>l.stage=='Proposal Sent'&&!l.nextFu],['Proposal older than '+D.set.prop+'d without activity','r',l=>l.stage=='Proposal Sent'&&ds(l)>=D.set.prop],['Negotiation with no activity','r',l=>l.stage=='Negotiation'&&ds(l)>=3],['Payment pending','o',l=>l.stage=='Payment Pending'],['Deposit/balance unpaid '+D.set.dep+'d+','r',l=>(l.stage=='Payment Pending'||l.stage=='Won')&&bal(l)>0&&dd(l.depDate||stT(l,'Payment Pending')||stT(l,'Won')||l.created)>=D.set.dep],['Follow-up untouched '+D.set.fu+'d+','r',l=>isOpen(l)&&l.stage!='New Lead'&&ds(l)>=D.set.fu],['Demo booking lag > '+D.set.lag+'d','r',l=>(lagD(l)||0)>D.set.lag],['Qualified lead, no demo booked','o',l=>l.stage=='Qualified']];
+// ---- scope & filters
+function VL(){const r=$('fr').value,s=$('fs').value,a=$('f1').value,b=$('f2').value,me=(D.me||'').toLowerCase();
+return D.leads.filter(l=>(D.role=='Setter'&&me?(l.setter||'').toLowerCase()==me:D.role=='Closer'&&me?(l.closer||'').toLowerCase()==me:true)&&(!r||l.setter==r||l.closer==r)&&(!s||l.source==s)&&(!a||l.created.slice(0,10)>=a)&&(!b||l.created.slice(0,10)<=b))}
+function opts(){const u=k=>[...new Set(D.leads.map(l=>l[k]).filter(Boolean))].sort(),reps=[...new Set([...u('setter'),...u('closer')])];
+const f=(id,a,p)=>{const e=$(id),v=e.value;e.innerHTML=`<option value="">${p}</option>`+a.map(x=>`<option>${esc(x)}</option>`).join('');e.value=v};f('fr',reps,'All reps');f('fs',OPT.src,'All sources');f('fst',ST,'All stages');$('role').value=D.role;$('me').value=D.me}
+function clr(){['fr','fs','f1','f2'].forEach(i=>$(i).value='');all()}['fr','fs','f1','f2'].forEach(i=>$(i).onchange=()=>all());
+const V=[['today','Today'],['board','Board'],['log','Leads'],['dash','Dashboard'],['fc','Forecast'],['daily','Daily'],['imp','Import']];
+function show(v){V.forEach(([k])=>$('v-'+k).classList.toggle('on',k==v));$('nav').innerHTML=V.filter(([k])=>!(D.role=='Setter'&&k=='fc')).map(([k,t])=>`<button class="${k==v?'on':''}" onclick="show('${k}')">${t}</button>`).join('');if(v=='imp')impUI()}
+// ---- lead creation & stage moves
+function newLead(o){const t=iso();D.seq++;const l=Object.assign({id:'DL-2026-'+String(D.seq).padStart(5,'0'),stage:'New Lead',created:t,source:'Cold Call',mods:[],tl:[],acts:[]},o);l.tl.push({t:l.created,e:'Lead created',s:l.stage});D.leads.push(l);return l}
+function mv(l,s,e){if(l.stage==s)return;audit(l,'stage',l.stage,s);l.stage=s;l.tl.push({t:iso(),e:e||'Moved to '+s,s})}
+function audit(l,f,o,nw){if(String(o??'')!=String(nw??''))D.audit.push({t:iso(),id:l.id,by:D.me||D.role,f,o,n:nw})}
+function drop(e,s){e.preventDefault();const l=D.leads.find(x=>x.id==e.dataTransfer.getData('t'));if(!l||l.stage==s)return;if(s=='Won'&&!fin(l)){edit(l.id,'Enter Proposal/Deal Value before marking Won.');return}if(s=='Lost'){edit(l.id,'Pick a Loss Reason and Lost Note, set stage Lost, then Save.');return}mv(l,s);sv();all()}
+// ---- board
+function card(l){const f=fuS(l);return `<div class="card ${f}" draggable="true" ondragstart="event.dataTransfer.setData('t','${l.id}')" onclick="edit('${l.id}')"><b>${esc(l.name||l.company)}</b><small>${esc(l.company)}</small><small>${esc(l.setter||'–')} → ${esc(l.closer||'–')} · ${esc(l.source)}</small><small>${fin(l)?inr(fin(l)):''} · ${ds(l)}d since activity${l.nextFu?' · FU '+l.nextFu:''}</small>${l.demoDate?'<span class="bd">Demo '+l.demoDate.slice(0,10)+'</span>':''}${l.propStatus?'<span class="bd">Prop: '+l.propStatus+'</span>':''}${fin(l)&&l.stage!='New Lead'?'<span class="bd">'+pay(l)+'</span>':''}${f=='red'?'<span class="bd r">Overdue</span>':f=='yel'?'<span class="bd o">Due soon</span>':''}</div>`}
+function board(){const L=VL();$('board').innerHTML=ST.map(s=>{const c=L.filter(l=>l.stage==s);return `<div class="col" ondragover="event.preventDefault()" ondrop="drop(event,'${s}')"><h3>${s}<span>${c.length}</span></h3>${c.length?c.map(card).join(''):'<span class="note">Empty</span>'}</div>`}).join('')}
+// ---- lead dialog
+function edit(id,msg){const l=D.leads.find(x=>x.id==id)||{stage:'New Lead',created:iso(),source:'Cold Call',mods:[],tl:[]};const e=!!id;
+const inp=([k,t,ty,o])=>`<label>${t}${ty=='sel'?`<select id="f_${k}">${o.map(x=>`<option ${x==(l[k]||'')?'selected':''}>${x}</option>`).join('')}</select>`:ty=='textarea'?`<textarea id="f_${k}" rows="2">${esc(l[k])}</textarea>`:`<input id="f_${k}" type="${ty||'text'}" value="${esc(l[k])}" ${o?'list="sl"':''}>`}</label>`;
+const ph=(l.phone||'').replace(/[^\d+]/g,''),wa=ph.replace(/\D/g,'').length==10?'91'+ph:ph.replace(/\D/g,'');
+$('dlg').innerHTML=`<form method="dialog" onsubmit="return false"><b>${esc(l.id||'New lead')}</b> <span class="note">${e?'Final value '+inr(fin(l))+' · '+pay(l)+' · Balance '+inr(bal(l)):''}</span>
+${e?`<div class="qa"><a href="tel:${esc(ph)}">📞 Call</a><a target="_blank" href="https://wa.me/${wa}">💬 WhatsApp</a><button onclick="actDlg('${l.id}')">📝 Activity</button><button onclick="qs('${l.id}','Demo Booked')">📅 Book Demo</button><button onclick="qs('${l.id}','Proposal Sent')">📄 Proposal</button><button onclick="qs('${l.id}','Won')">✅ Won</button><button onclick="qs('${l.id}','Lost')">❌ Lost</button></div>`:''}
+<p id="err" class="err">${esc(msg||'')}</p>${G.map(([g,fs])=>`<h2>${g}</h2><div class="grid">${fs.map(inp).join('')}</div>`).join('')}
+<h2>ERP Requirement / Modules</h2><div class="grid">${OPT.mod.map(m=>`<label style="flex-direction:row;gap:6px"><input type="checkbox" class="mod" value="${m}" ${(l.mods||[]).includes(m)?'checked':''} style="width:auto"> ${m}</label>`).join('')}</div>
+<div class="row"><button class="p big" onclick="save('${id||''}')">Save</button><button onclick="dlg.close()">Close</button>${e?`<button class="d" onclick="rm('${l.id}')">Delete</button>`:''}</div>
+${e?`<h2>Commission</h2><p class="note">Net revenue ${inr(net(l))} · Setter ${inr(cS(l))} · Closer ${inr(cC(l))} · Total ${inr(cS(l)+cC(l))}</p><h2>Timeline</h2><div class="tl">${[...l.tl].reverse().map(x=>`<div><b>${x.t.slice(0,16).replace('T',' ')}</b> – ${esc(x.e)}</div>`).join('')}</div>`:''}</form><datalist id="sl">${[...new Set(D.leads.flatMap(x=>[x.setter,x.closer]).filter(Boolean))].map(x=>`<option>${esc(x)}</option>`).join('')}</datalist>`;$('dlg').showModal()}
+function qs(id,s){const l=D.leads.find(x=>x.id==id);if(s=='Demo Booked'){$('f_stage').value='Demo Booked';$('f_demoStatus').value='Scheduled';$('f_demoDate').focus()}else if(s=='Proposal Sent'){$('f_stage').value='Proposal Sent';$('f_propStatus').value='Sent';if(!$('f_propDate').value)$('f_propDate').value=td();$('f_propVal').focus()}else if(s=='Won'){$('f_stage').value='Won';$('f_collected').focus()}else{$('f_stage').value='Lost';$('f_loss').focus()}}
+function save(id){const g=k=>$('f_'+k).value.trim(),o={};G.forEach(([_,fs])=>fs.forEach(([k])=>o[k]=g(k)));o.mods=[...document.querySelectorAll('.mod:checked')].map(x=>x.value);
+const P=(a,b)=>{$('err').textContent=a;return b};
+if(!o.name&&!o.company)return P('Lead Name or Company is required.');if(o.email&&!/^\S+@\S+\.\S+$/.test(o.email))return P('Invalid email.');if(o.phone&&!phs(o.phone).length)return P('Invalid phone.');
+if(!id){const d=dup(o);if(d&&!confirm('Possible duplicate: '+(d.name||d.company)+' ('+d.id+'). Create anyway?'))return}
+let l=D.leads.find(x=>x.id==id);const nw=!l;if(nw)l=newLead({});
+if(o.propStatus=='Accepted'&&idx(o.stage)<idx('Payment Pending'))o.stage='Payment Pending';
+if(n(o.collected)>=fin(Object.assign({},l,o))&&fin(Object.assign({},l,o))>0&&!o.paidDate)o.paidDate=td();
+const tmp=Object.assign({},l,o);
+if(o.stage=='Won'&&!fin(tmp))return P('Deal Value is required to mark Won.');
+if(o.stage=='Lost'&&(!o.loss||!o.lossNote))return P('Loss Reason and Lost Note are required.');
+['propVal','disc','collected','refund','setter','closer','sComm','cComm'].forEach(k=>audit(l,k,l[k],o[k]));
+const st=o.stage;delete o.stage;if(nw)delete o.created;Object.assign(l,o);
+if(nw){l.stage=st;l.tl[0].s=st}else mv(l,st);
+if(o.propStatus&&o.propStatus!=tmpP[l.id]){}
+sv();dlg.close();all()}
+const tmpP={};
+function rm(id){if(confirm('Delete this lead?')){D.leads=D.leads.filter(x=>x.id!=id);sv();dlg.close();all()}}
+// ---- activity
+function actDlg(id){const L=VL(),sel=id||'';$('dl2').innerHTML=`<form method="dialog" onsubmit="return false"><b>Add Activity</b><div class="grid"><label>Lead<select id="a_l">${L.map(l=>`<option value="${l.id}" ${l.id==sel?'selected':''}>${esc(l.company||l.name)}</option>`).join('')}</select></label><label>Type<select id="a_t">${OPT.at.map(x=>`<option>${x}</option>`).join('')}</select></label><label>Outcome<select id="a_o">${OPT.ao.map(x=>`<option>${x}</option>`).join('')}</select></label><label>Next Follow-Up<input type="date" id="a_f"></label><label>Demo Date/Time (if booked)<input type="datetime-local" id="a_d"></label><label>Notes<input id="a_n"></label></div><p id="a_e" class="err"></p><div class="row"><button class="p big" onclick="addAct()">Save</button><button onclick="dl2.close()">Cancel</button></div></form>`;$('dl2').showModal()}
+function addAct(){const l=D.leads.find(x=>x.id==$('a_l').value);if(!l)return;const t=$('a_t').value,o=$('a_o').value,dt=$('a_d').value;
+if(o=='Demo Booked'&&!dt){$('a_e').textContent='Enter the demo date/time.';return}
+const T=iso();l.acts=acts(l);l.acts.push({t:T,type:t,out:o});l.tl.push({t:T,e:`${t} – ${o}${$('a_n').value?': '+$('a_n').value:''}`});
+if($('a_f').value)l.nextFu=$('a_f').value;if(l.stage=='New Lead')mv(l,'Contacted','First contact ('+t+')');
+if(o=='Interested'&&idx(l.stage)<2)mv(l,'Qualified');
+if(o=='Demo Booked'){l.demoDate=dt;l.demoStatus='Scheduled';if(idx(l.stage)<3)mv(l,'Demo Booked')}
+if(o=='Not Qualified'||o=='Wrong Number'){mv(l,'Lost');l.loss='Not Qualified';l.lossNote=o}
+sv();dl2.close();all()}
+// ---- search
+function gsr(){const q=$('gs').value.toLowerCase();if(q.length<2)return;lst('Search: '+q,D.leads.filter(l=>JSON.stringify([l.name,l.company,l.phone,l.email,l.setter,l.closer,l.propNo,l.id]).toLowerCase().includes(q)).slice(0,30),true)}
+function lst(title,L,keep){const h=`<form method="dialog" onsubmit="return false"><b>${esc(title)} (${L.length})</b><div class="tw">${L.map(l=>`<div class="cl" style="padding:8px;border-bottom:1px solid var(--b);cursor:pointer" onclick="dl2.close();edit('${l.id}')">${esc(l.company||l.name)} <span class="note">· ${l.stage} · ${esc(l.setter||'')} · ${ds(l)}d idle</span></div>`).join('')||'<p class="note">Nothing here.</p>'}</div><button onclick="dl2.close()">Close</button></form>`;$('dl2').innerHTML=h;if(!$('dl2').open)$('dl2').showModal()}
+// ---- today / command center
+function today(){const L=VL(),t=td(),lk=LK.map(([nm,lv,f],i)=>[nm,lv,L.filter(l=>l.stage!='Won'&&l.stage!='Lost'||(i==6)?f(l):false),i]);
+const K=(a,b,c,cl)=>`<div class="kpi k ${cl||''}" onclick="LS(${c})"><small>${a}</small><b>${b.length}</b></div>`;
+window.LS=i=>lst(TD[i][0],TD[i][1]);
+window.TD=[['Follow-ups due today',L.filter(l=>isOpen(l)&&l.nextFu==t)],['Overdue follow-ups',L.filter(l=>isOpen(l)&&l.nextFu&&l.nextFu<t)],['Demos today',L.filter(l=>l.demoDate&&l.demoDate.slice(0,10)==t)],['Uncontacted (New Lead)',L.filter(l=>l.stage=='New Lead')],['Idle 7+ days',L.filter(l=>isOpen(l)&&l.stage!='New Lead'&&ds(l)>=7)],['Idle 14+ days',L.filter(l=>isOpen(l)&&l.stage!='New Lead'&&ds(l)>=14)],['Proposals awaiting follow-up',L.filter(l=>l.stage=='Proposal Sent')],['Payments pending',L.filter(l=>l.stage=='Payment Pending')]];
+$('v-today').innerHTML=`<h2>Who do I need to call today?</h2><div class="kpis">${TD.map((x,i)=>K(x[0],x[1],i,i==1&&x[1].length?'red':i==0&&x[1].length?'org':'')).join('')}</div><h2>Needs attention (Sales Leaks)</h2>${lk.map(([nm,lv,a,i])=>`<div class="kpi k ${a.length?(lv=='r'?'red':'org'):''}" style="margin-bottom:6px" onclick="window.LK2=${i};lst(LK[${i}][0],VL().filter(LK[${i}][2]))">${a.length?(lv=='r'?'🔴':'🟠'):'🟢'} <b>${a.length}</b> ${nm}</div>`).join('')}`}
+// ---- lead log
+let sk='created',sd=-1;const COLS=[['Lead',l=>l.name],['Company',l=>l.company],['Phone',l=>l.phone],['Setter',l=>l.setter],['Closer',l=>l.closer],['Source',l=>l.source],['Stage',l=>l.stage],['Demo Date',l=>(l.demoDate||'').slice(0,10)],['Deal Value',l=>fin(l)],['Collected',l=>n(l.collected)],['Next FU',l=>l.nextFu],['Last Activity',l=>last(l).slice(0,10)],['Age (d)',l=>Math.floor(dd(l.created))],['Pay',l=>fin(l)?pay(l):''],['Location',l=>l.location],['Type',l=>l.industry]];
+function logL(){const q=$('q').value.toLowerCase(),s=$('fst').value;let L=VL().filter(l=>(!s||l.stage==s)&&(!q||JSON.stringify(COLS.map(c=>c[1](l))).toLowerCase().includes(q)));const c=COLS.find(c=>c[0]==sk)||COLS[0];return L.sort((a,b)=>{const x=c[1](a)??'',y=c[1](b)??';';return(typeof x=='number'&&typeof y=='number'?x-y:String(x).localeCompare(String(y)))*sd})}
+function log(){$('logt').innerHTML='<tr>'+COLS.map(c=>`<th onclick="sk='${c[0]}';sd*=-1;log()">${c[0]}</th>`).join('')+'</tr>'+(logL().map(l=>`<tr class="cl" onclick="edit('${l.id}')">`+COLS.map(c=>`<td class="${c[0]=='Last Activity'&&fuS(l)=='red'?'red':''}">${esc(c[1](l))}</td>`).join('')+'</tr>').join('')||'<tr><td>No leads yet – use Import.</td></tr>')}
+function expLog(){const L=logL(),ws=XLSX.utils.aoa_to_sheet([COLS.map(c=>c[0]),...L.map(l=>COLS.map(c=>c[1](l)))]),wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Leads');XLSX.writeFile(wb,'DrawLead_Leads_'+td()+'.xlsx')}
+// ---- dashboard
+const T=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`,TR=(c,red)=>'<tr>'+c.map((x,i)=>`<td class="${red&&red[i]?'red':''}">${x}</td>`).join('')+'</tr>';
+function dailySum(k,who,a,b){return D.daily.filter(x=>x.who==who&&(!a||x.date>=a)&&(!b||x.date<=b)).reduce((t,x)=>t+n(x[k]),0)}
+function dash(){const L=VL(),a=$('f1').value,b=$('f2').value,S=[...new Set(L.map(l=>l.setter).filter(Boolean))].sort(),C=[...new Set(L.map(l=>l.closer).filter(Boolean))].sort(),t=td();
+const R=s=>L.filter(l=>reached(l,s)).length,won=L.filter(l=>l.stage=='Won'),RV=won.reduce((x,l)=>x+rev(l),0),CASH=L.reduce((x,l)=>x+n(l.collected),0),REF=L.reduce((x,l)=>x+n(l.refund),0),OUT=won.reduce((x,l)=>x+bal(l),0);
+const K=(a,v,c)=>`<div class="kpi ${c||''}"><small>${a}</small><b>${v}</b></div>`;
+let h='<h2>Overview</h2><div class="kpis">'+[['Total Leads',L.length],['New Leads',L.filter(l=>l.stage=='New Lead').length],['Qualified',R('Qualified')],['Demos Booked',R('Demo Booked')],['Demos Completed',R('Demo Completed')],['Proposals',R('Proposal Sent')],['Negotiations',R('Negotiation')],['Won',won.length],['Lost',L.filter(l=>l.stage=='Lost').length],['Pipeline Value',inr(L.filter(isOpen).reduce((x,l)=>x+fin(l),0))],['Revenue',inr(RV)],['Cash Collected',inr(CASH)],['Outstanding',inr(OUT)]].map(x=>K(...x)).join('')+'</div>';
+h+='<h2>Setters</h2>'+T(['Setter','Assigned','Contacted','Dials','WA/DMs','Convos','Qualified','Demos Booked','Booking %','Contact→Booking','Speed (min)','FU Due','FU Overdue','Lag (d)'],S.map(s=>{const M=L.filter(l=>l.setter==s),A=M.flatMap(acts),ct=M.filter(l=>reached(l,'Contacted')).length,q=M.filter(l=>reached(l,'Qualified')).length,bk=M.filter(l=>reached(l,'Demo Booked')).length,sp=avg(M.filter(l=>acts(l).length).map(l=>(new Date(acts(l)[0].t)-new Date(l.created))/6e4)),lg=avg(M.map(lagD).filter(x=>x!=null)),cv=A.filter(x=>['Connected','Interested','Call Back','Demo Booked','Not Interested'].includes(x.out)).length;
+return TR([esc(s),M.length,ct,A.filter(x=>x.type=='Call').length+dailySum('calls',s,a,b),A.filter(x=>x.type!='Call').length+dailySum('dms',s,a,b),cv+dailySum('convos',s,a,b),q,bk,pct(bk,q),pct(bk,ct),r1(sp),M.filter(l=>isOpen(l)&&l.nextFu==t).length,M.filter(l=>isOpen(l)&&l.nextFu&&l.nextFu<t).length,r1(lg)],{13:lg>D.set.lag,12:M.some(l=>isOpen(l)&&l.nextFu&&l.nextFu<t)})}));
+if(D.role!='Setter'){h+='<h2>Closers</h2>'+T(['Closer','Demos Taken','Proposals','Offer Rate','Sales','Close Rate','Close on Proposals','1-Call Sales','Follow-Up Sales','Avg Deal','Rev/Demo','Pipeline','Aging'],C.map(c=>{const M=L.filter(l=>l.closer==c),dm=M.filter(l=>reached(l,'Demo Completed')).length,pr=M.filter(l=>reached(l,'Proposal Sent')).length,w=M.filter(l=>l.stage=='Won'),rv=w.reduce((x,l)=>x+rev(l),0),one=w.filter(l=>acts(l).length<=3||dd(l.created,stT(l,'Won'))<=1).length,ag=M.filter(l=>isOpen(l)&&l.stage!='New Lead'&&ds(l)>=D.set.fu).length;
+return TR([esc(c),dm,pr,pct(pr,dm),w.length,pct(w.length,dm),pct(w.length,pr),one,w.length-one,w.length?inr(rv/w.length):'–',dm?inr(rv/dm):'–',inr(M.filter(isOpen).reduce((x,l)=>x+fin(l),0)),ag],{12:ag>0})}));
+h+='<h2>Money</h2><div class="kpis">'+[['Proposal Value',inr(L.filter(l=>reached(l,'Proposal Sent')).reduce((x,l)=>x+fin(l),0))],['Won Deal Value',inr(RV)],['Cash Collected',inr(CASH)],['Outstanding',inr(OUT)],['Refunds/Clawbacks',inr(REF)],['Net Revenue',inr(RV-REF)],['Setter Commission',inr(won.reduce((x,l)=>x+cS(l),0))],['Closer Commission',inr(won.reduce((x,l)=>x+cC(l),0))]].map(x=>K(...x)).join('')+'</div>';
+h+='<h2>Commission by rep</h2>'+T(['Rep','Role','Net Revenue','Earnings'],[...S.map(s=>['Setter',s,won.filter(l=>l.setter==s),cS]),...C.map(c=>['Closer',c,won.filter(l=>l.closer==c),cC])].map(([r,nm,w,f])=>TR([esc(nm),r,inr(w.reduce((x,l)=>x+net(l),0)),inr(w.reduce((x,l)=>x+f(l),0))])));
+const lc={};L.filter(l=>l.stage=='Lost').forEach(l=>{const k=l.loss||'(none)';lc[k]=(lc[k]||0)+1});const mx=Math.max(1,...Object.values(lc));
+h+='<h2>Loss reasons</h2><div class="tw" style="padding:10px">'+(Object.keys(lc).length?Object.entries(lc).sort((x,y)=>y[1]-x[1]).map(([k,v])=>`<div class="bar"><span>${k}</span><i style="width:${v/mx*60}%"></i><b>${v}</b></div>`).join(''):'<span class="note">No lost deals.</span>')+'</div>'}
+h+='<h2>Source analytics</h2>'+T(['Source','Leads','Qualified','Demos','Won','Revenue','Conversion'],[...new Set(L.map(l=>l.source||'Other'))].sort().map(s=>{const M=L.filter(l=>(l.source||'Other')==s),w=M.filter(l=>l.stage=='Won');return TR([esc(s),M.length,M.filter(l=>reached(l,'Qualified')).length,M.filter(l=>reached(l,'Demo Completed')).length,w.length,inr(w.reduce((x,l)=>x+rev(l),0)),pct(w.length,M.length)])}));
+$('v-dash').innerHTML=h}
+// ---- forecast
+function fc(){const L=VL(),F=D.fa,t=td(),dm=L.filter(l=>reached(l,'Demo Completed')).length,ns=L.filter(l=>l.demoStatus=='No Show').length,pr=L.filter(l=>reached(l,'Proposal Sent')).length,w=L.filter(l=>l.stage=='Won'),q=L.filter(l=>reached(l,'Qualified')).length,bk=L.filter(l=>reached(l,'Demo Booked')).length;
+const H={show:dm+ns?dm/(dm+ns):.7,prop:dm?pr/dm:.6,close:pr?w.length/pr:.25,deal:w.length?w.reduce((x,l)=>x+rev(l),0)/w.length:100000,book:q?bk/q:.5};
+const A=k=>F[k]!==undefined&&F[k]!==''?n(F[k]):H[k],sched=L.filter(l=>l.stage=='Demo Booked'&&(!l.demoDate||l.demoDate.slice(0,10)>=t)).length,qo=L.filter(l=>l.stage=='Qualified').length,mo=t.slice(0,7);
+const cur=L.filter(l=>l.stage=='Won'&&(stT(l,'Won')||'').slice(0,7)==mo).reduce((x,l)=>x+net(l),0),tg=n(D.set.target);
+const sc=(nm,m)=>{const c=x=>Math.min(1,x*m),ed=(sched+qo*c(A('book')))*c(A('show')),ep=ed*c(A('prop')),ew=ep*c(A('close')),fr=ew*A('deal');return[nm,r1(ed),r1(ep),r1(ew),inr(fr),inr(cur+fr),pct(cur+fr,tg)]};
+const I=(k,l,v)=>`<label>${l}<input type="number" step="0.01" value="${F[k]??''}" placeholder="${(v*(k=='deal'?1:1)).toFixed(k=='deal'?0:2)}" onchange="D.fa.${k}=this.value;sv();fc()"></label>`;
+const S=(k,l)=>`<label>${l}<input type="number" value="${D.set[k]}" onchange="D.set.${k}=+this.value;sv();all()"></label>`;
+$('v-fc').innerHTML=`<h2>Month target</h2><div class="kpis"><div class="kpi"><small>Target</small><b>${inr(tg)}</b></div><div class="kpi"><small>Revenue this month</small><b>${inr(cur)}</b></div><div class="kpi ${tg>cur?'org':''}"><small>Remaining gap</small><b>${inr(Math.max(0,tg-cur))}</b></div></div>
+<h2>Forecast</h2>${T(['Scenario','Exp. Demos','Exp. Proposals','Exp. Wins','Forecast Rev','Month Total','vs Target'],[sc('Conservative (rates ×0.7)',.7),sc('Expected',1),sc('Upside (rates ×1.2)',1.2)].map(r=>TR(r)))}
+<p class="note">Expected Demos = (Scheduled demos ${sched} + Open qualified ${qo} × Booking rate) × Show rate → × Proposal rate → × Close rate → × Avg deal = Forecast Revenue.</p>
+<h2>Assumptions (leave blank = use your history; placeholder shows current)</h2><div class="grid">${I('show','Show rate (0-1)',H.show)}${I('book','Qualified→Demo rate',H.book)}${I('prop','Demo→Proposal rate',H.prop)}${I('close','Proposal→Won rate',H.close)}${I('deal','Avg deal value',H.deal)}</div>
+<h2>Settings (Admin)</h2><div class="grid">${S('target','Monthly revenue target')}${S('fu','Follow-up alert (days)')}${S('dep','Deposit alert (days)')}${S('lag','Booking lag alert (days)')}${S('prop','Proposal idle alert (days)')}${S('sc','Default setter commission %')}${S('cc','Default closer commission %')}</div>`}
+// ---- daily
+function daily(){const f=[['date','Date','date'],['who','Rep name','text'],['calls','Calls Made'],['dms','WhatsApp/DMs'],['convos','Conversations'],['qual','Qualified Leads'],['booked','Demos Booked'],['taken','Demos Taken'],['props','Proposals Sent'],['sales','Sales Closed'],['fus','Follow-Ups Done'],['note','Notes','text']];
+$('v-daily').innerHTML=`<h2>Daily activity (activity counts only – lead data lives on the cards)</h2><div class="grid">${f.map(([k,l,ty])=>`<label>${l}<input id="d_${k}" type="${ty||'number'}" ${k=='who'?'list="sl" value="'+esc(D.me)+'"':''} ${k=='date'?'value="'+td()+'"':''}></label>`).join('')}</div><button class="p big" onclick="addDaily()">Save</button><datalist id="sl">${[...new Set(D.leads.flatMap(x=>[x.setter,x.closer]).filter(Boolean))].map(x=>`<option>${esc(x)}</option>`).join('')}</datalist>
+${T(['Date','Rep','Calls','DMs','Convos','Qualified','Booked','Taken','Proposals','Sales'],D.daily.slice(-15).reverse().map(x=>TR([x.date,esc(x.who),x.calls||0,x.dms||0,x.convos||0,x.qual||0,x.booked||0,x.taken||0,x.props||0,x.sales||0])))}`;window.addDaily=()=>{const o={};f.forEach(([k])=>o[k]=$('d_'+k).value);if(!o.who)return alert('Enter rep name');D.daily.push(o);sv();daily()}}
+// ---- IMPORT
+const FLD={name:'Lead Name',company:'Company',email:'Email',phone:'Phone',location:'Location',industry:'Industry / Business Type',dm:'Decision Maker',source:'Source',setter:'Setter',closer:'Closer',created:'Date Created',stage:'Lead Status',callstatus:'Call Status → notes/stage',nextFu:'Follow-up Date',notes:'Notes',est:'Estimated Deal Value',ctype:'Company Type'};
+const ALI=[['callstatus',/call status|call outcome|remark/],['name',/lead name|contact person|^name$|^contact name/],['company',/company|organi[sz]ation/],['email',/mail/],['phone',/phone|mobile|^contact$|whatsapp/],['location',/location|city|area/],['industry',/business type|industry/],['dm',/decision/],['source',/source/],['setter',/setter|assigned/],['closer',/closer/],['created',/created|date added/],['stage',/^(lead )?status$|stage/],['nextFu',/follow/],['notes',/note|comment/],['est',/value|budget/],['ctype',/company type/]];
+let IMP={rows:[],hdr:[],map:{},res:null,fn:''};
+const cell=v=>v instanceof Date?iso(v):String(v??'').trim(),phs=s=>s.split(/[\/,;]|\bor\b/i).map(x=>x.replace(/[^\d+]/g,'')).filter(x=>x.replace(/\D/g,'').length>=6),pk=p=>p.replace(/\D/g,'').slice(-10);
+function dup(o){const e=(o.email||'').toLowerCase(),P=phs(o.phone||'').map(pk),cn=((o.company||'')+'|'+(o.name||'')).toLowerCase();return D.leads.find(x=>e&&x.email&&x.email.toLowerCase()==e)||D.leads.find(x=>P.length&&phs(x.phone||'').map(pk).some(k=>P.includes(k)))||D.leads.find(x=>cn.length>1&&((x.company||'')+'|'+(x.name||'')).toLowerCase()==cn)}
+function impUI(){$('v-imp').innerHTML=`<h2>Import leads from Excel / CSV</h2><div class="row"><input type="file" id="imf" accept=".xlsx,.xls,.csv" onchange="impFile(this.files[0])"><button onclick="tpl()">Download Lead Import Template</button><label class="note">Default source <input id="isrc" value="Cold Call" style="width:110px"></label></div><div id="imb"></div><h2>Import history</h2>${T(['File','When','By','New','Updated','Skipped','Errors'],D.imports.slice().reverse().map(x=>TR([esc(x.fn),x.t.replace('T',' '),esc(x.by),x.nw,x.up,x.sk,x.er])))}`;if(IMP.rows.length)impStep()}
+function impFile(f){if(!f)return;if(f.size>5e6){alert('File too large (max 5 MB).');return}const r=new FileReader();r.onload=e=>{try{const wb=XLSX.read(e.target.result,{type:'array',cellDates:true}),ws=wb.Sheets[wb.SheetNames[0]],A=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''}).filter(r=>r.some(c=>String(c).trim()));IMP={hdr:A[0].map(String),rows:A.slice(1),map:{},res:null,fn:f.name};
+IMP.hdr.forEach((h,i)=>{const hn=h.toLowerCase().replace(/[\d\-\/]{6,}/g,'').trim(),m=ALI.find(([k,re])=>re.test(hn)&&!Object.values(IMP.map).includes(k));if(m)IMP.map[i]=m[0]});impStep()}catch(x){$('imb').innerHTML='<p class="err">Could not read file: '+esc(x.message)+'</p>'}};r.readAsArrayBuffer(f)}
+function conv(r){const o={mods:[]},g=k=>{const i=Object.keys(IMP.map).find(i=>IMP.map[i]==k);return i==null?'':cell(r[i])};Object.keys(FLD).forEach(k=>o[k]=g(k));const P=phs(o.phone);o.phone2=P[1]||'';o.phone=P[0]||o.phone;o.name=o.name||o.company;o.source=o.source||$('isrc').value||'Cold Call';
+const cs=o.callstatus.toLowerCase();let st=ST.find(s=>s.toLowerCase()==o.stage.toLowerCase());if(!st)st=!cs?'New Lead':/get back|call back|callback/.test(cs)?'Contacted':/not required|does not exist|ila|not interested/.test(cs)?'Lost':'Contacted';o.stage=st;if(st=='Lost'){o.loss='Not Qualified';o.lossNote=o.callstatus}
+o.notes=[o.notes,o.callstatus&&'Call: '+o.callstatus].filter(Boolean).join(' | ');delete o.callstatus;if(o.created)o.created=o.created.length==10?o.created+'T09:00':o.created;else delete o.created;if(o.nextFu)o.nextFu=o.nextFu.slice(0,10);return o}
+function classify(){const seen=[],res={rows:[]};IMP.rows.forEach((r,i)=>{const o=conv(r),er=[];if(!o.name&&!o.company)er.push('Missing lead name/company');if(o.email&&!/^\S+@\S+\.\S+$/.test(o.email))er.push('Invalid email');const raw=cell(r[Object.keys(IMP.map).find(k=>IMP.map[k]=='phone')]||'');if(raw&&!phs(raw).length)er.push('Invalid phone');
+let ex=er.length?null:dup(o),inF=!er.length&&seen.some(s=>{const a=phs(s.phone||'').map(pk),b=phs(o.phone||'').map(pk);return(s.email&&s.email==o.email)||a.some(k=>b.includes(k))||((s.company+'|'+s.name).toLowerCase()==(o.company+'|'+o.name).toLowerCase()&&o.company)});if(!er.length)seen.push(o);
+res.rows.push({i,o,er,ex,inF,st:er.length?'invalid':inF?'dupfile':ex?'dup':'new'})});IMP.res=res}
+function impStep(){classify();const R=IMP.res.rows,c=s=>R.filter(x=>x.st==s).length;
+$('imb').innerHTML=`<h2>Map columns</h2><div class="grid">${IMP.hdr.map((h,i)=>`<label>${esc(h)}<select onchange="IMP.map[${i}]=this.value||undefined;if(!this.value)delete IMP.map[${i}];impStep()"><option value="">(ignore)</option>${Object.entries(FLD).map(([k,v])=>`<option value="${k}" ${IMP.map[i]==k?'selected':''}>${v}</option>`).join('')}</select></label>`).join('')}</div>
+<div class="kpis"><div class="kpi"><small>Total rows</small><b>${R.length}</b></div><div class="kpi"><small>Valid</small><b>${R.length-c('invalid')}</b></div><div class="kpi org"><small>Duplicates</small><b>${c('dup')+c('dupfile')}</b></div><div class="kpi ${c('invalid')?'red':''}"><small>Invalid</small><b>${c('invalid')}</b></div><div class="kpi"><small>Ready to import (new)</small><b>${c('new')}</b></div></div>
+<div class="row"><select id="imode"><option value="up">Import new + Update existing</option><option value="new">Import new only (skip duplicates)</option></select><button class="p big" onclick="doImp()">Import</button><button onclick="errDl()">Download Error Rows</button></div>
+<h2>Preview (first 20)</h2>${T(['Status','Company','Lead','Phone','Stage','Issue'],R.slice(0,20).map(x=>TR([x.st,esc(x.o.company),esc(x.o.name),esc(x.o.phone),x.o.stage,esc(x.er.join(', ')||(x.ex?'matches '+x.ex.id:x.inF?'repeat in file':''))])))}`}
+function doImp(){const mode=$('imode').value;let nw=0,up=0,sk=0,er=0;IMP.res.rows.forEach(x=>{if(x.st=='invalid'){er++;return}if(x.st=='dupfile'){sk++;return}
+if(x.st=='dup'){if(mode=='new'){sk++;return}let ch=false;const l=x.ex;Object.entries(x.o).forEach(([k,v])=>{if(['stage','created','mods','loss','lossNote'].includes(k)||v===''||v==null)return;if(l[k]!==v){if(k=='notes'&&(l.notes||'').includes(v)){return}audit(l,k,l[k],v);l[k]=v;ch=true}});
+if(l.stage=='New Lead'&&x.o.stage!='New Lead'){mv(l,x.o.stage,'Updated from import: '+x.o.stage);if(x.o.stage=='Lost'){l.loss=x.o.loss;l.lossNote=x.o.lossNote}ch=true}
+if(ch){l.tl.push({t:iso(),e:'Updated from import'});up++}else sk++;return}
+const l=newLead(x.o);if(x.o.stage=='Lost'){l.loss=x.o.loss;l.lossNote=x.o.lossNote}l.tl.push({t:iso(),e:'Imported from '+IMP.fn});nw++});
+D.imports.push({fn:IMP.fn,t:iso(),by:D.me||D.role,nw,up,sk,er});sv();IMP.rows=[];all();$('v-imp').insertAdjacentHTML('afterbegin',`<div class="kpi" style="margin-top:8px"><b>Import done</b> – New: ${nw} · Updated: ${up} · Duplicates skipped: ${sk} · Errors: ${er}</div>`)}
+function errDl(){const bad=IMP.res.rows.filter(x=>x.st=='invalid');if(!bad.length)return alert('No error rows.');const ws=XLSX.utils.aoa_to_sheet([[...IMP.hdr,'Error'],...bad.map(x=>[...IMP.rows[x.i],x.er.join('; ')])]),wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Errors');XLSX.writeFile(wb,'DrawLead_Import_Errors.xlsx')}
+function tpl(){const H=['Lead Name','Company Name','Email','Phone','Source','Setter Name','Closer Name','Date Created','Lead Status','Notes','Industry','Company Size','Location','Requirement','Decision Maker','Estimated Deal Value'],W=XLSX.utils.book_new();XLSX.utils.book_append_sheet(W,XLSX.utils.aoa_to_sheet([H]),'Leads');
+const ins=[['Field','Instructions'],['Lead Name','Contact person. If blank the Company is used.'],['Company Name','Required if no Lead Name.'],['Email','Primary duplicate key.'],['Phone','Secondary duplicate key. Several numbers may be separated by "/".'],['Source','e.g. Cold Call, BNI, LinkedIn, Referral.'],['Setter Name / Closer Name','Rep names exactly as used in the CRM.'],['Date Created','YYYY-MM-DD.'],['Lead Status','One of: '+ST.join(', ')+'. Blank = New Lead.'],['Notes / Industry / Company Size / Location / Requirement / Decision Maker','Free text.'],['Estimated Deal Value','Number, no symbols.'],['Re-uploading','Matches by Email, then Phone, then Company+Lead Name; matches are updated, never duplicated.']];
+XLSX.utils.book_append_sheet(W,XLSX.utils.aoa_to_sheet(ins),'Instructions');XLSX.writeFile(W,'DrawLead_Lead_Import_Template.xlsx')}
+function all(){opts();today();board();log();dash();fc();daily();show(document.querySelector('.view.on').id.slice(2))}
+all();
+</script></body></html>
